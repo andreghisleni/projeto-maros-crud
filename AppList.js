@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import AppItem from './AppItem';
 import Database from './Database';
 
@@ -11,10 +12,23 @@ export default function AppList({ route, navigation }) {
     Database.getItems().then((items) => setItems(items));
   }, [route]);
 
+  async function handleAddPress() {
+    navigation.navigate('AppForm');
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Text style={styles.title}>Lista de Compras</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Lista de Compras
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleAddPress}>
+          <Text style={styles.buttonText}>Adicionar</Text>
+        </TouchableOpacity>
+      </View>
+
       <ScrollView
         style={styles.scrollContainer}
         contentContainerStyle={styles.itemsContainer}>
@@ -40,12 +54,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  titleContainer: {
+    marginTop: 50,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 50,
-    marginBottom: 20,
+  },
+  button: {
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderColor: '#fff',
+    borderStyle: 'solid',
+    borderWidth: 0.3,
+    marginLeft: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   scrollContainer: {
     flex: 1,

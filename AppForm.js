@@ -50,10 +50,15 @@ export default function AppForm({ route, navigation }) {
 
       navigation.reset({
         index: 0,
-        routes: [{ name: 'AppForm' }],
+        routes: [{ name: 'AppList', params: { listItem } }],
       });
+    });
+  }
 
-      navigation.navigate('AppList', listItem);
+  async function handleCancelPress() {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'AppList' }],
     });
   }
 
@@ -78,6 +83,9 @@ export default function AppForm({ route, navigation }) {
         />
         <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
           <Text style={styles.buttonText}>Salvar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ ...styles.button, backgroundColor: '#D93600', }} onPress={handleCancelPress}>
+          <Text style={styles.buttonText}>Cancelar</Text>
         </TouchableOpacity>
       </View>
       <StatusBar style="light" />
